@@ -3,7 +3,7 @@ package hagwclient
 import (
 	"context"
 
-	"proto/hagw"
+	"github.com/benstev/proto/hagw"
 
 	"github.com/zeromicro/go-zero/zrpc"
 	"google.golang.org/grpc"
