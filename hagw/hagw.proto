@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+import "google/protobuf/any.proto";
+
+package hagw;
+option go_package="./hagw";
+
+message HAState {
+  string state = 1;
+  map<string, google.protobuf.Any> attributes = 2;
+  map<string, string> metadata = 20; 
+}
+
+message StateReq {
+  string entity = 1;
+}
+
+message StateResp {
+  HAState state = 1;
+}
+
+message SubscribeReq {
+  string entity = 1;
+}
+
+message SubscribeResp {}
+
+message CallServiceReq {
+  string entity = 1;
+  string domain = 2;
+  string service = 3;
+  map<string, google.protobuf.Any> data = 4;
+}
+
+message CallServiceResp {}
+
+message FireEventReq {
+  string eventType = 1;
+  map<string, google.protobuf.Any> event = 2;
+}
+
+message FireEventResp {}
+
+service Hagw {
+  rpc state(StateReq) returns(StateResp);
+  rpc subscribe(SubscribeReq) returns (stream HAState);
+  rpc callService(CallServiceReq) returns(CallServiceResp);
+  rpc fireEvent(FireEventReq) returns(FireEventResp);
+}
